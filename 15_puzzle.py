@@ -5,6 +5,8 @@ import random
 ROW_COUNT = 4
 COLUMN_COUNT = 4
 TILE_COUNT = ROW_COUNT * COLUMN_COUNT - 1
+LEFT, RIGHT, UP, DOWN = 'left', 'right', 'up', 'down'
+KEY_ACTIONS = {'a': LEFT, 'd': RIGHT, 'w': UP, 's': DOWN}
 
 
 def main():
@@ -13,10 +15,16 @@ def main():
     space_y = COLUMN_COUNT - 1
     while not game_finished(field, space_x, space_y):
         render(field)
-        key = input('Enter a/s/d/w or exit: ')
-        if key == 'exit':
-            return
-        space_x, space_y = do_move(field, key, space_x, space_y)
+        while True:
+            command = input('Enter a/s/d/w or exit: ')
+            if command == 'exit':
+                return
+            if command in KEY_ACTIONS:
+                break
+            else:
+                print('Unknown command. Please try again.')
+        space_x, space_y = do_move(field, KEY_ACTIONS[command],
+                                   space_x, space_y)
     print('Game over!')
 
 
@@ -56,17 +64,17 @@ def render(field):
     print(''.join(output))
 
 
-def do_move(field, key, space_x, space_y):
+def do_move(field, action, space_x, space_y):
     # Get the moving tile position.
     tile_x = space_x
     tile_y = space_y
-    if key == 'a':
+    if action == LEFT:
         tile_x += 1
-    elif key == 'd':
+    elif action == RIGHT:
         tile_x -= 1
-    elif key == 'w':
+    elif action == UP:
         tile_y += 1
-    elif key == 's':
+    elif action == DOWN:
         tile_y -= 1
     # Check if the tile position is not outside of the field.
     if (tile_x < 0 or tile_y < 0
