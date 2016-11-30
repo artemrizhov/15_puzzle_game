@@ -12,7 +12,9 @@ def main():
     space_y = COLUMN_COUNT - 1
     while not game_finished(field, space_x, space_y):
         render(field)
-        key = input('Enter a/s/d/w: ')
+        key = input('Enter a/s/d/w or exit: ')
+        if key == 'exit':
+            return
         space_x, space_y = do_move(field, key, space_x, space_y)
     print('Game over!')
 
