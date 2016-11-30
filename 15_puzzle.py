@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import random
 
+
 ROW_COUNT = 4
 COLUMN_COUNT = 4
 TILE_COUNT = ROW_COUNT * COLUMN_COUNT - 1
